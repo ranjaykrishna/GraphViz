@@ -20,7 +20,7 @@ Save a scene graph object as json in a file with the following format:
         {name: STRING},
         ...
     ],
-    attribute: [
+    attributes: [
         {attribute: STRING, object: INT},
         ...
     ],
