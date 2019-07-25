@@ -1,8 +1,21 @@
 <html>
 
 <head>
-    <!-- Define the styles of the graphs. -->
+    <!-- Import all the libraries we need. -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js"></script>
+
     <link rel="stylesheet" type="text/css" href="joint.min.css" />
+    <script src="dagre.min.js"></script>
+    <script src="graphlib.min.js"></script>
+    <script src="joint.js"></script>
+
+
+    <!-- Define the styles of the graphs. -->
     <style>
       g text {
         font-weight: 300;
@@ -20,33 +33,34 @@
       }
     </style>
 
-    <!-- Import all the libraries we need. -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://underscorejs.org/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js"></script>
-    <script src="dagre.min.js"></script>
-    <script src="graphlib.min.js"></script>
-    <script src="joint.js"></script>
-</head>
-
+    </head>
 <body>
     <!-- List basic statistics of the graph. -->
     <div class='container'>
-        <div class="row">
-            <div class="col-md-3">
-                <h4> Total Number </h4>
-                <div class='stat_element'>Objects: <span id='num_objects'></span></div>
-                <div class='stat_element'>Attributes: <span id='num_attributes'></span></div>
-                <div class='stat_element'>Relationships: <span id='num_relationships'></span></div>
+        <div  style='margin: 10px;' class="row">
+            <div class="col-4">
+                <div class="row" align='center'>
+                    <div class="col-4">
+                        <div class='stat_element'>Objects:</div>
+                        <div class='stat_element'><span id='num_objects'></span></div>
+                    </div>
+                    <div class="col-4">
+                        <div class='stat_element'>Attributes: </div>
+                        <div class='stat_element'><span id='num_attributes'></span></div>
+                    </div>
+                    <div class="col-4">
+                        <div class='stat_element'>Relationships: </div>
+                        <div class='stat_element'><span id='num_relationships'></span></div>
+                    </div>
+                </div>
+                <!-- Add the image to the image-container div. -->
+                <div id='image-container'></div>
+            </div>
+            <div class="col-8">
+                <!-- Creates the graph visualization in the image-graph div. -->
+                <div style='margin: 50px;' id='image-graph'></div>
             </div>
         </div>
-
-        <!-- Add the image to the image-container div. -->
-        <div id='image-container'></div>
-
-        <!-- Creates the graph visualization in the image-graph div. -->
-        <div class="container" id='image-graph'></div>
     </div>
 
     <!-- Location of where the graph is stored as  js file. I read from a javascript file to avoid cross origin errors. -->
@@ -57,15 +71,13 @@
 
     <!-- Read the graph, display the image and generate the graph visualization. -->
     <script>
-    $(document).ready(function() {
-      var imageContainer = $('#image-container');
-      var image = $("<img style='width:400px; height:400px;' src='" + graph.url + "'></img>");
-      imageContainer.append(image);
-        $('#num_objects').text(graph.objects.length)
-        $('#num_attributes').text(graph.attributes.length)
-        $('#num_relationships').text(graph.relationships.length)
-        renderSceneGraph('#image-graph', graph);
-    });
+        var imageContainer = $('#image-container');
+        var image = $("<img style='width:400px; height:400px;' src='" + graph.url + "'></img>");
+        imageContainer.append(image);
+            $('#num_objects').text(graph.objects.length)
+            $('#num_attributes').text(graph.attributes.length)
+            $('#num_relationships').text(graph.relationships.length)
+            renderSceneGraph('#image-graph', graph);
     </script>
 
 </body>
